@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Board from './Board';
 import './Game.css';
+import useTelegram from '../hooks/useTelegram';
 
 // Constants
 const BOARD_WIDTH = 10;
@@ -89,6 +90,20 @@ function Game() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSpeed, setCurrentSpeed] = useState(INITIAL_SPEED);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const { WebAppMainButton, tg } = useTelegram();
+  WebAppMainButton.setText(`Exit`);
+  WebAppMainButton.show();
+
+  const onSendData = useCallback(() => {
+      tg.sendData(JSON.stringify({playerCount : score}));
+  }, [tg, score]);
+
+  useEffect(() => {
+      tg.onEvent('mainButtonClicked', onSendData);
+      return () => {
+          tg.offEvent('mainButtonClicked', onSendData);
+      }
+  }, [tg, onSendData]);
 
   // Create empty board
   function createEmptyBoard() {
