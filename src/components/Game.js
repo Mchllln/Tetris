@@ -12,10 +12,10 @@ const SPEED_INCREASE_AMOUNT = 100; // milliseconds
 
 // Scoring system
 const SCORE_POINTS = {
-  SINGLE: 100,
-  DOUBLE: 300,
-  TRIPLE: 500,
-  TETRIS: 800,
+  SINGLE: 1,
+  DOUBLE: 3,
+  TRIPLE: 5,
+  TETRIS: 8,
   SOFT_DROP: 1,
   HARD_DROP: 2
 };
